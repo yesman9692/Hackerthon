@@ -1,6 +1,7 @@
 // 한글 Can we use Korean Characters ?
 // Jiyong want to add some more codes !
 // Please accept my code.
+// Can I change the original master code ?
 
 void addMenu(JTextField text_menu, JTextField text_restaurant) { //매개변수로 TextField의 값들을 받음 (메뉴, 식당)
 		try {
