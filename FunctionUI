@@ -1,0 +1,98 @@
+package com.function;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import com.datatype.Member;
+
+public class Function {
+	private final String DATA_FILE = "member_info.txt";// member_info.txt파일 생성
+
+	private BufferedReader in = null;// 읽어오기 위한 bufferedReader 선언
+	private PrintWriter out = null;// 작성하기 위한 printwriter 선언
+
+	public boolean add(Member member) {
+
+		try {
+
+			out = new PrintWriter(new FileWriter(DATA_FILE, true));// txt파일 에저장을 위해 file writer out을 선언 보통은 datafile,
+																	// true 지만 만약 false값이 들어간다면 새로 저장하는 정보는 새로운 파일에 저장되게
+																	// 한다
+
+			out.println(member.getmember() + "/" + member.getrestaurant());// out.write 와 out.println 줄바꿈의 차이
+			out.flush();// 잔여 데이터 삭제
+			out.close();// file저장을 종료
+
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean login(Member member, boolean checkPasswd) {// 로그인을 위한 메소드
+
+		String line = null;
+		File file = new File(DATA_FILE);
+		try {
+			if (!file.exists())
+				file.createNewFile();
+
+		}
+
+		catch (IOException e) {
+
+		}
+		try {
+			in = new BufferedReader(new FileReader(DATA_FILE));
+			while ((line = in.readLine()) != null) {// n) id: ~~~, passwd: ~~~~형식으로 출력
+				String[] split_line = line.split("/");
+				String id = split_line[0];
+				String passwd = split_line[1];
+
+				if (id.equals(member.getmember())) {
+					if (checkPasswd) {
+						if (passwd.equals(member.getrestaurant())) {
+							in.close();
+							return true;
+						}
+					} else {
+						in.close();
+						return true;
+					}
+				}
+				
+			}
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public ArrayList<Member> printMembers() {
+		ArrayList<Member> list = new ArrayList<Member>();
+		String line = null;
+		try {
+			in = new BufferedReader(new FileReader(DATA_FILE));
+
+			while ((line = in.readLine()) != null) {// n) id: ~~~, passwd: ~~~~형식으로 출력
+				String[] split_line = line.split("/");
+				String _id = split_line[0];
+				String _passwd = split_line[1];
+				String _name=split_line[2];
+
+				list.add(new Member(_id, _passwd));
+			}
+			in.close();
+		} catch (IOException e) {
+
+		}
+		return list;
+	}
+}

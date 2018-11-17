@@ -1,0 +1,90 @@
+package com.ui;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import com.function.Function;
+import com.function.Resolution;
+
+public class MainUI extends JFrame implements ActionListener {
+
+	private JTextField text_id = null;
+	private JPasswordField text_passwd = null;
+	private JButton button_delete = null, button_register = null,button_list=null,button_recommend=null;
+	private Function function = new Function();
+	
+	private RegisterUI registerui = new RegisterUI();
+	private DeleteUI deleteui = new DeleteUI();
+	private MemberListUI memberlistui = new MemberListUI();
+
+	public MainUI() {
+		
+		super("메뉴추천해드려요~");
+		
+		setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(Resolution.x/2-550, Resolution.y/2-500,640,900);
+		setResizable(false);
+		
+		JLabel label_id=new JLabel("안녕하세요 저희는 한수 배우러 온 15학번 입니다.");
+		JLabel label_passwd=new JLabel("원하는 메뉴를 추가, 삭제, 추천하는 기능들을 만들거에요");
+		
+		label_id.setBounds(20,20,400,40);
+		label_passwd.setBounds(20,70,400,40);
+		
+		
+		button_register=new JButton("메뉴추가");
+		button_delete=new JButton("이건 안 먹고 싶어요");
+		button_delete.setFont(new Font("고딕",Font.ITALIC,20));
+	    button_delete.setBackground(Color.cyan);
+		
+		button_list=new JButton("저장된 맛집들~");
+		button_recommend=new JButton("추천해드릴게요");
+		
+		
+		button_register.setBounds(110,190,400,100);
+		button_delete.setBounds(110,340,400,100);
+		button_list.setBounds(110,490,400,100);
+		button_recommend.setBounds(110,640,400,100);
+		
+		button_delete.addActionListener(this);
+		button_register.addActionListener(this);
+		button_list.addActionListener(this);
+		button_recommend.addActionListener(this);
+		
+		add(label_id);
+		add(label_passwd);
+	
+		add(button_register);
+		add(button_delete);
+		
+		add(button_list);
+		add(button_recommend);
+		setVisible(true);
+	}
+@Override
+	public void actionPerformed(ActionEvent e) {
+		Object o = e.getSource();
+	
+		 if (o == button_delete) {
+			deleteui.setVisible(true);
+		}
+		else if (o == button_register) {
+			registerui.setVisible(true);
+		}
+		
+		else if(o== button_list) {
+			memberlistui.setVisible(true);
+		}
+
+	}
+
+}
