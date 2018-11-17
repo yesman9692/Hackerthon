@@ -1,0 +1,20 @@
+void addMenu(JTextField text_menu, JTextField text_restaurant) { //매개변수로 TextField의 값들을 받음 (메뉴, 식당)
+		try {
+			File file = new File("menu"); //데이터를 추가할 파일
+			BufferedWriter bfwr = new BufferedWriter(new FileWriter(file)); //write 객체 생성
+			
+			String menu = text_menu.getText(); //TextField의 값을 String으로 변환
+			String restaurant = text_restaurant.getText(); //TextField의 값을 String으로 변환
+			
+			if(file.isFile() && file.canWrite()) { //파일존재&쓸 수 있나 검사
+				bfwr.write(menu);
+				bfwr.write("/");
+				bfwr.write(restaurant);
+			}
+			
+			bfwr.close(); //write객체 종료
+			
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+	}
