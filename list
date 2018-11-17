@@ -1,0 +1,70 @@
+package com.ui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import com.function.Function;
+import com.function.Resolution;
+
+public class MemberListUI extends JFrame {
+
+	private Function function = new Function();
+	BufferedReader in = null;// 파일 입출력
+	String DATA_FILE = "member_info.txt";// 저장된 데이터를 불러오는 파일 명
+
+	public MemberListUI() {
+
+		super("최근에 먹었습니다.");// 상단에 창 이름
+
+		setLayout(null);
+
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// exit는 프레임 전부가 종료되고 dispose는 현재 프레임만 종료
+		setBounds(Resolution.x / 2 - 550, Resolution.y / 2 - 500, 640, 900);
+
+		setResizable(false);// 창 크기 조절 불가능
+
+		Vector vector = new Vector();// 대용량의 데이터를 효과적으로 다를 수있는 클래스
+		vector.clear();// 벡터의 모든 요소 제거
+
+		setVisible(false);
+
+		try {
+			in = new BufferedReader(new FileReader(DATA_FILE));
+			String line;
+
+			while ((line = in.readLine()) != null) {
+				String[] split_line = line.split("/");
+				String menu = split_line[0];
+				String restaurant = split_line[1];
+				;
+				vector.add("메뉴 : " + menu + "   식당 : " +restaurant+  "\n");// 반복문이 돌아갈떄마다 벡터에 값 저장
+
+			}
+		} catch (IOException e) {
+
+		}
+
+		JList<Object> list = new JList<Object>();
+
+		list.setListData(vector);
+
+		list.setBounds(0, 0, 640, 900);
+		list.setFont(new Font("고딕",Font.ITALIC,26));
+	    list.setBackground(Color.white);
+
+		add(list);
+
+	}
+}
