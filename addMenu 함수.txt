@@ -1,18 +1,20 @@
-void addMenu(JTextField text_menu, JTextField text_restaurant) { //¸Å°³º¯¼ö·Î TextFieldÀÇ °ªµéÀ» ¹ŞÀ½ (¸Ş´º, ½Ä´ç)
+// 
+
+void addMenu(JTextField text_menu, JTextField text_restaurant) { //ë§¤ê°œë³€ìˆ˜ë¡œ TextFieldì˜ ê°’ë“¤ì„ ë°›ìŒ (ë©”ë‰´, ì‹ë‹¹)
 		try {
-			File file = new File("menu"); //µ¥ÀÌÅÍ¸¦ Ãß°¡ÇÒ ÆÄÀÏ
-			BufferedWriter bfwr = new BufferedWriter(new FileWriter(file)); //write °´Ã¼ »ı¼º
+			File file = new File("menu"); //ë°ì´í„°ë¥¼ ì¶”ê°€í•  íŒŒì¼
+			BufferedWriter bfwr = new BufferedWriter(new FileWriter(file)); //write ê°ì²´ ìƒì„±
 			
-			String menu = text_menu.getText(); //TextFieldÀÇ °ªÀ» StringÀ¸·Î º¯È¯
-			String restaurant = text_restaurant.getText(); //TextFieldÀÇ °ªÀ» StringÀ¸·Î º¯È¯
+			String menu = text_menu.getText(); //TextFieldì˜ ê°’ì„ Stringìœ¼ë¡œ ë³€í™˜
+			String restaurant = text_restaurant.getText(); //TextFieldì˜ ê°’ì„ Stringìœ¼ë¡œ ë³€í™˜
 			
-			if(file.isFile() && file.canWrite()) { //ÆÄÀÏÁ¸Àç&¾µ ¼ö ÀÖ³ª °Ë»ç
+			if(file.isFile() && file.canWrite()) { //íŒŒì¼ì¡´ì¬&ì“¸ ìˆ˜ ìˆë‚˜ ê²€ì‚¬
 				bfwr.write(menu);
 				bfwr.write("/");
 				bfwr.write(restaurant);
 			}
 			
-			bfwr.close(); //write°´Ã¼ Á¾·á
+			bfwr.close(); //writeê°ì²´ ì¢…ë£Œ
 			
 		} catch (IOException e) {
 			System.err.println(e);
